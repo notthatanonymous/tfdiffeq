@@ -8,7 +8,7 @@ import tensorflow as tf
 
 from tfdiffeq import odeint
 
-tf.enable_eager_execution()
+#tf.enable_eager_execution()
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--network', type=str, choices=['resnet', 'odenet'], default='odenet')
