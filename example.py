@@ -465,7 +465,7 @@ def get_logger(logpath, filepath, package_files=[], displaying=True, saving=True
 
 makedirs(args.save)
 logger = get_logger(logpath=os.path.join(args.save, 'logs'), filepath=os.path.abspath(__file__))
-logger.info(args)
+#logger.info(args)
 
 device = 'gpu:' + str(args.gpu) if tf.test.is_gpu_available() else 'cpu:0'
 with tf.device(device):
@@ -508,7 +508,7 @@ with tf.device(device):
     # data_gen = inf_generator(train_loader)
     # batches_per_epoch = 60000 // args.batch_size
 
-    global_step = tf.train.get_or_create_global_step()
+    global_step = tf.training_util.get_or_create_global_step() #train.get_or_create_global_step()
     num_steps_per_epoch = 60000 // args.batch_size
     boundary_epochs = [60, 100, 140]
     boundary_iterations = [num_steps_per_epoch * e for e in boundary_epochs]
