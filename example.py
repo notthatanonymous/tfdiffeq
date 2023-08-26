@@ -8,7 +8,7 @@ import tensorflow as tf
 
 from tfdiffeq import odeint
 
-#tf.enable_eager_execution()
+tf.enable_eager_execution()
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--network', type=str, choices=['resnet', 'odenet'], default='odenet')
@@ -464,7 +464,7 @@ def get_logger(logpath, filepath, package_files=[], displaying=True, saving=True
 
 
 makedirs(args.save)
-logger = get_logger(logpath=os.path.join(args.save, 'logs'), filepath=os.path.abspath(__file__))
+#logger = get_logger(logpath=os.path.join(args.save, 'logs'), filepath=os.path.abspath(__file__))
 #logger.info(args)
 
 device = 'gpu:' + str(args.gpu) if tf.test.is_gpu_available() else 'cpu:0'
@@ -508,7 +508,7 @@ with tf.device(device):
     # data_gen = inf_generator(train_loader)
     # batches_per_epoch = 60000 // args.batch_size
 
-    global_step = tf.training_util.get_or_create_global_step() #train.get_or_create_global_step()
+    global_step = tf.train.get_or_create_global_step()
     num_steps_per_epoch = 60000 // args.batch_size
     boundary_epochs = [60, 100, 140]
     boundary_iterations = [num_steps_per_epoch * e for e in boundary_epochs]
@@ -562,19 +562,20 @@ with tf.device(device):
             saver.save(path)
             best_acc = val_acc
 
-        logger.info(
-            "Epoch {:04d} | Time {:.3f} ({:.3f}) | NFE-F {:.1f} | NFE-B {:.1f} | "
-            "Train Acc {:.4f} | Test Acc {:.4f}".format(
-                epoch, batch_time_meter.val, batch_time_meter.avg, f_nfe_meter.avg,
-                b_nfe_meter.avg, train_acc, val_acc
-            )
-        )
+    #     logger.info(
+    #         "Epoch {:04d} | Time {:.3f} ({:.3f}) | NFE-F {:.1f} | NFE-B {:.1f} | "
+    #         "Train Acc {:.4f} | Test Acc {:.4f}".format(
+    #             epoch, batch_time_meter.val, batch_time_meter.avg, f_nfe_meter.avg,
+    #             b_nfe_meter.avg, train_acc, val_acc
+    #         )
+    #     )
 
-    logger.info('Number of parameters: {}'.format(model.count_params()))
-    logger.info('Model Info:')
+    # logger.info('Number of parameters: {}'.format(model.count_params()))
+    # logger.info('Model Info:')
 
-    def summary(line):
-        logger.info(line)
-        print(line)
+    # def summary(line):
+    #     logger.info(line)
+    #     print(line)
 
-    model.summary(print_fn=summary)
+    # model.summary(print_fn=summary)
+print("\n\n\nComplete")
