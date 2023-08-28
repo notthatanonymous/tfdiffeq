@@ -8,7 +8,7 @@ import tensorflow as tf
 
 from tfdiffeq import odeint
 
-tf.enable_eager_execution()
+# tf.enable_eager_execution()
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--network', type=str, choices=['resnet', 'odenet'], default='odenet')
@@ -16,7 +16,7 @@ parser.add_argument('--tol', type=float, default=1e-4)
 parser.add_argument('--method', type=str, choices=['dopri5', 'adams', 'euler', 'huen'], default='euler')
 # parser.add_argument('--adjoint', type=eval, default=False, choices=[True, False])
 parser.add_argument('--downsampling-method', type=str, default='conv', choices=['conv', 'res'])
-parser.add_argument('--nepochs', type=int, default=2)
+parser.add_argument('--nepochs', type=int, default=1)
 parser.add_argument('--data_aug', type=eval, default=False, choices=[True, False])
 parser.add_argument('--lr', type=float, default=0.1)
 parser.add_argument('--batch_size', type=int, default=128)
@@ -436,7 +436,7 @@ def makedirs(dirname):
         os.makedirs(dirname)
 
 
-def get_logger(logpath, filepath, package_files=[], displaying=True, saving=True, debug=False):
+def get_logger(logpath, filepath, package_files=[], displaying=False, saving=True, debug=False):
     logger = logging.getLogger()
     if debug:
         level = logging.DEBUG
