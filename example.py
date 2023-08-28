@@ -510,12 +510,12 @@ with tf.device(device):
 
     global_step = tf.compat.v1.train.get_or_create_global_step()
     num_steps_per_epoch = 60000 // args.batch_size
-    boundary_epochs = [10]
+    boundary_epochs = [60, 100, 140]
     boundary_iterations = [num_steps_per_epoch * e for e in boundary_epochs]
-    lrs = [0.001]
+    lrs = [0.001, 0.0005, 0.0001, 0.00005]
 
     learning_rate = tf.compat.v1.train.piecewise_constant(global_step, boundary_iterations, lrs)
-    optimizer = tf.train.AdamOptimizer(learning_rate)
+    optimizer = tf.compat.v1.train.AdamOptimizer(learning_rate)
 
     best_acc = 0
     batch_time_meter = RunningAverageMeter()
@@ -523,7 +523,7 @@ with tf.device(device):
     b_nfe_meter = RunningAverageMeter()
     end = time.time()
 
-    saver = tf.train.Checkpoint(model=model,
+    saver = tf.compat.v1.train.Checkpoint(model=model,
                                 optimizer=optimizer,
                                 global_step=global_step)
 
