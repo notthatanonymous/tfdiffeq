@@ -514,7 +514,7 @@ with tf.device(device):
     boundary_iterations = [num_steps_per_epoch * e for e in boundary_epochs]
     lrs = [0.001]
 
-    learning_rate = tf.train.piecewise_constant(global_step, boundary_iterations, lrs)
+    learning_rate = tf.compat.v1.train.piecewise_constant(global_step, boundary_iterations, lrs)
     optimizer = tf.train.AdamOptimizer(learning_rate)
 
     best_acc = 0
