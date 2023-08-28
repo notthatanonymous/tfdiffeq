@@ -497,7 +497,7 @@ with tf.device(device):
                  tf.keras.layers.Dense(10, activation='softmax')]
 
     layers = (*downsampling_layers, *feature_layers, *fc_layers)
-    print("Nnm layers", len(layers))
+    #print("Nnm layers", len(layers))
 
     model = tf.keras.models.Sequential(layers)
 
@@ -575,10 +575,10 @@ with tf.device(device):
     logger.info('Model Info:')
     print('Model Info:')
 
-    def summary(line):
-        logger.info(line)
-        print(line)
+    # def summary(line):
+    #     logger.info(line)
+    #     print(line)
 
-    model.summary(print_fn=summary)
+    # model.summary(print_fn=summary)
 
 print(f"\n\n\nScore: {best_acc}\n\n\n")
