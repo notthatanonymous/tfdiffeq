@@ -465,7 +465,7 @@ def get_logger(logpath, filepath, package_files=[], displaying=False, saving=Tru
 
 makedirs(args.save)
 logger = get_logger(logpath=os.path.join(args.save, 'logs'), filepath=os.path.abspath(__file__))
-#logger.info(args)
+logger.info(args)
 
 device = 'gpu:' + str(args.gpu) if tf.test.is_gpu_available() else 'cpu:0'
 with tf.device(device):
@@ -571,11 +571,13 @@ with tf.device(device):
         # )
 
     logger.info('Number of parameters: {}'.format(model.count_params()))
+    print('Number of parameters: {}'.format(model.count_params()))
     logger.info('Model Info:')
+    print('Model Info:')
 
-    # def summary(line):
-    #     logger.info(line)
-    #     print(line)
+    def summary(line):
+        logger.info(line)
+        print(line)
 
-    # model.summary(print_fn=summary)
+    model.summary(print_fn=summary)
 print("\n\n\nComplete")
