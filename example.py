@@ -93,7 +93,7 @@ class GroupNormalization(tf.keras.layers.Layer):
 
     def build(self, input_shape):
         input_shape = tf.TensorShape(input_shape)
-        dim = input_shape[self.axis].value
+        dim = input_shape[self.axis]
 
         if dim is None:
             raise ValueError('Axis ' + str(self.axis) + ' of '
