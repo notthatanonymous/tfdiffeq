@@ -508,11 +508,11 @@ with tf.device(device):
     # data_gen = inf_generator(train_loader)
     # batches_per_epoch = 60000 // args.batch_size
 
-    global_step = tf.train.get_or_create_global_step()
+    global_step = tf.compat.v1.train.get_or_create_global_step()
     num_steps_per_epoch = 60000 // args.batch_size
-    boundary_epochs = [60, 100, 140]
+    boundary_epochs = [10]
     boundary_iterations = [num_steps_per_epoch * e for e in boundary_epochs]
-    lrs = [0.001, 0.0005, 0.0001, 0.00005]
+    lrs = [0.001]
 
     learning_rate = tf.train.piecewise_constant(global_step, boundary_iterations, lrs)
     optimizer = tf.train.AdamOptimizer(learning_rate)
