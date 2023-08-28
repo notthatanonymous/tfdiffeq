@@ -16,7 +16,7 @@ parser.add_argument('--tol', type=float, default=1e-4)
 parser.add_argument('--method', type=str, choices=['dopri5', 'adams', 'euler', 'huen'], default='euler')
 # parser.add_argument('--adjoint', type=eval, default=False, choices=[True, False])
 parser.add_argument('--downsampling-method', type=str, default='conv', choices=['conv', 'res'])
-parser.add_argument('--nepochs', type=int, default=5)
+parser.add_argument('--nepochs', type=int, default=2)
 parser.add_argument('--data_aug', type=eval, default=False, choices=[True, False])
 parser.add_argument('--lr', type=float, default=0.1)
 parser.add_argument('--batch_size', type=int, default=128)
@@ -464,7 +464,7 @@ def get_logger(logpath, filepath, package_files=[], displaying=True, saving=True
 
 
 makedirs(args.save)
-#logger = get_logger(logpath=os.path.join(args.save, 'logs'), filepath=os.path.abspath(__file__))
+logger = get_logger(logpath=os.path.join(args.save, 'logs'), filepath=os.path.abspath(__file__))
 #logger.info(args)
 
 device = 'gpu:' + str(args.gpu) if tf.test.is_gpu_available() else 'cpu:0'
@@ -570,12 +570,12 @@ with tf.device(device):
         #     )
         # )
 
-    # logger.info('Number of parameters: {}'.format(model.count_params()))
-    # logger.info('Model Info:')
+    logger.info('Number of parameters: {}'.format(model.count_params()))
+    logger.info('Model Info:')
 
-    def summary(line):
-        logger.info(line)
-        print(line)
+    # def summary(line):
+    #     logger.info(line)
+    #     print(line)
 
-    model.summary(print_fn=summary)
+    # model.summary(print_fn=summary)
 print("\n\n\nComplete")
