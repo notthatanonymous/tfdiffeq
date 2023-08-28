@@ -428,7 +428,7 @@ def accuracy(model, dataset_loader):
         predicted_class = np.argmax(model(x).numpy(), axis=1)
         total_correct += np.sum(predicted_class == target_class)
         samples += x.shape.as_list()[0]
-    return total_correct / samples
+    return round((total_correct / samples), 6)
 
 
 def makedirs(dirname):
