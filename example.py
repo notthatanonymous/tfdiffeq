@@ -580,4 +580,5 @@ with tf.device(device):
         print(line)
 
     model.summary(print_fn=summary)
-print("\n\n\nComplete")
+
+print(f"\n\n\nScore: {best_acc}\n\n\n")
